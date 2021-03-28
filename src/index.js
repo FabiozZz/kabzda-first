@@ -1,12 +1,24 @@
+import React from 'react';
+import App from './App';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
-import {state} from './redux/state';
-import {addPosts} from "./redux/state";
-import {rerenderEntiereThree} from "./render";
+import {store} from "./redux/state";
+import ReactDOM from 'react-dom';
 
 
-rerenderEntiereThree(state,addPosts);
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+let rerenderEntiereThree = (state)=>{
+
+
+    ReactDOM.render(
+        <React.StrictMode>
+            <App
+                updateNewPostText={store.updateNewPostText.bind(store)}
+                addPosts={store.addPosts.bind(store)}
+                state={state}
+            />
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
+rerenderEntiereThree(store.getState());
+store.subscribes(rerenderEntiereThree);
