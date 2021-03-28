@@ -20,6 +20,12 @@ export const Dialogs = (props) => {
                 {messagesElements}
                 {/*<Message messages={messagesData}/>*/}
             </div>
+            <div>
+                <textarea cols="30" rows="3"></textarea>
+            </div>
+            <div>
+                <button>Add Post</button>
+            </div>
         </div>
     );
 };

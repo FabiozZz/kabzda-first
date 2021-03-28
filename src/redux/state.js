@@ -1,4 +1,6 @@
-export const state = {
+import {rerenderEntiereThree} from "../render";
+
+export let state = {
     dialogsPage:{
         dialogs:[
             {id:1, name:'Ульяна'},
@@ -32,5 +34,23 @@ export const state = {
             {id:7, message:'Что то не так работает', likesCount:15},
             {id:8, message:'Здесь был василий и пил водку с пивом', likesCount:26},
         ],
-    }
+        newPostText: ''
+
+    },
+    sidebar:{},
 }
+export let addPosts = ()=>{
+    let newPost = {
+        id: Date.now(),
+        message: state.profilePage.newPostText,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    rerenderEntiereThree(state);
+};
+export let updateNewPostText = (newText) => {
+
+    state.profilePage.newPostText = newText;
+    rerenderEntiereThree(state);
+};
