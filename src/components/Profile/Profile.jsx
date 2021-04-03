@@ -1,12 +1,12 @@
 import React from 'react';
 // import classes from './profile.module.css'
-import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 export const Profile = (props)=>{
     return (
         <div>
-            <ProfileInfo/>
-            <MyPosts updateNewPostText={props.updateNewPostText} addPosts={props.addPosts} posts={props.state.posts} newPostText={props.state.newPostText}/>
+            <ProfileInfo profile={props.profile}/>
+            <MyPostsContainer />
         </div>
     );
 }

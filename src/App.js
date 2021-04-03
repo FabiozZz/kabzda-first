@@ -2,11 +2,13 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {NavBar} from "./components/NavBar/NavBar";
 import {Profile} from "./components/Profile/Profile";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/USersContainer";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
 
 function App(props) {
     return (
@@ -15,16 +17,14 @@ function App(props) {
                 <Header/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/dialogs'} render={()=> <Dialogs state={props.state.dialogsPage}/>}
-                    />
-                    <Route path={'/profile'} render={()=><Profile
-                        updateNewPostText={props.updateNewPostText}
-                        addPosts={props.addPosts}
-                        state={props.state.profilePage}/>}
-                    />
-                    <Route path={'/news'} render={()=><News/>}/>
-                    <Route path={'/music'} render={()=><Music/>}/>
-                    <Route path={'/settings'} render={()=><Settings/>}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/profile'} render={() => <ProfileContainer/>}/>
+
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/settings'} render={() => <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>

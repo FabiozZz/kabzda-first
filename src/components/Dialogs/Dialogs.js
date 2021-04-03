@@ -4,10 +4,17 @@ import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 
 export const Dialogs = (props) => {
+    let dialogsElements = props.dialogsPage.dialogs.map((el,index) => <DialogItem key={index} name={el.name} id={el.id}/>)
+    let messagesElements = props.dialogsPage.messages.map((el,index) => <Message key={index} message={el.message} id={el.id}/>)
+    let newMessageBody = props.dialogsPage.newMessageBody;
+    let onNewMessageChange = (e) => {
+        let body = e.target.value;
+        props.onNewMessageChange(body);
+    };
 
-    let dialogsElements = props.state.dialogs.map((el,index) => <DialogItem key={index} name={el.name} id={el.id}/>)
-    let messagesElements = props.state.messages.map((el,index) => <Message key={index} message={el.message} id={el.id}/>)
-
+    let onSendMessageClick = () => {
+        props.onSendMessageClick();
+    };
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
@@ -17,14 +24,16 @@ export const Dialogs = (props) => {
             </div>
             <div className={classes.messages}>
                 Messages
-                {messagesElements}
+                <div> {messagesElements} </div>
+                <div>
+                    <div>
+                        <textarea onChange={onNewMessageChange} value={newMessageBody} placeholder={'enter your message'}/>
+                    </div>
+                    <div>
+                        <button onClick={onSendMessageClick}>Send</button>
+                    </div>
+                </div>
                 {/*<Message messages={messagesData}/>*/}
-            </div>
-            <div>
-                <textarea cols="30" rows="3"></textarea>
-            </div>
-            <div>
-                <button>Add Post</button>
             </div>
         </div>
     );

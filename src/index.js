@@ -1,24 +1,15 @@
 import React from 'react';
 import App from './App';
 import './index.css';
-import {store} from "./redux/state";
+import {store} from "./redux/reduxStore";
 import ReactDOM from 'react-dom';
+import {Provider} from "react-redux";
 
-
-
-let rerenderEntiereThree = (state)=>{
-
-
-    ReactDOM.render(
-        <React.StrictMode>
-            <App
-                updateNewPostText={store.updateNewPostText.bind(store)}
-                addPosts={store.addPosts.bind(store)}
-                state={state}
-            />
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-}
-rerenderEntiereThree(store.getState());
-store.subscribes(rerenderEntiereThree);
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);

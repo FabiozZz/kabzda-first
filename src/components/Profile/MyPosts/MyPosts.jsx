@@ -2,31 +2,33 @@ import React from 'react';
 import classes from './myPosts.module.css'
 import {Post} from "./Post/Post";
 
-export const MyPosts = (props)=>{
-    let newPostElement = React.createRef();
-    let postsElements = props.posts.map((post,index)=> <Post key={index} message={post.message} likesCount={post.likesCount}/>)
-    let addPost = () => {
-        let text = newPostElement.current.value;
-        props.addPosts(text);
+export class MyPosts extends React.Component {
+    onAddPost = () => {
+        this.props.addPosts();
+    }
+    onPostChange = (e)=>{
+        let text = e.target.value;
+        this.props.updateNewPostText(text);
     };
-    let onPostChange = ()=>{
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
-    };
-    return (
-        <div className={classes.postsBlock}>
-            <h3>My posts</h3>
-            <div>
+
+    render() {
+        let postsElements = this.props.posts.map((post,index)=> <Post key={index} message={post.message} likesCount={post.likesCount}/>)
+
+        return (
+            <div className={classes.postsBlock}>
+                <h3>My posts</h3>
                 <div>
-                    <textarea onChange={onPostChange} ref={newPostElement} cols="30" rows="3" value={props.newPostText}/>
+                    <div>
+                        <textarea onChange={this.onPostChange} cols="30" rows="3" value={this.props.newPostText}/>
+                    </div>
+                    <div>
+                        <button onClick={this.onAddPost}>Add Post</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={addPost}>Add Post</button>
+                <div className={classes.posts}>
+                    {postsElements}
                 </div>
             </div>
-            <div className={classes.posts}>
-                {postsElements}
-            </div>
-        </div>
-    );
+        );
+    }
 }
