@@ -3,9 +3,10 @@ import classes from "./users.module.css";
 import userPhoto from "../../assets/images/userPhoto.png";
 import {NavLink} from "react-router-dom";
 import {Paginator} from "../common/paginator/Paginator";
+import axios from "axios";
+import {setIsLoading} from "../../redux/usersReducer";
 
 export const Users = (props) => {
-
     return(
         <div>
             <Paginator
@@ -32,8 +33,30 @@ export const Users = (props) => {
                     </div>
                     <div>
                         {user.followed ?
-                            <button onClick={() => props.follow(user.id)}>Unfollowed</button> :
-                            <button onClick={() => props.unFollow(user.id)}>Followed</button>}
+                            <button onClick={() => {
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/` + user.id,{},
+                                    {
+                                        withCredentials:true,
+                                        headers:{
+                                            "API-KEY":"4b03154c-8a16-4fe6-bc0f-c37dad66906e"
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) props.follow(user.id);
+                                    });
+                            }}>Unfollowed</button> :
+                            <button onClick={() => {
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/` + user.id,
+                                    {
+                                        withCredentials:true,
+                                        headers:{
+                                            "API-KEY":"4b03154c-8a16-4fe6-bc0f-c37dad66906e"
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) props.unFollow(user.id);
+                                    });
+                            }}>Followed</button>}
                         {/*<button>Some button</button>*/}
                     </div>
                 </span>

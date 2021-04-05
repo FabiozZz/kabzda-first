@@ -1,5 +1,4 @@
 import React from 'react';
-// import classes from './profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 export const Profile = (props)=>{
